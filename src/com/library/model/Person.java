@@ -3,34 +3,36 @@ package com.library.model;
 import java.time.LocalDate;
 
 public class Person {
-    private String id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String citizenId;
     private LocalDate dateOfBirth;
     private String telephone;
+    private Address address;
 
-    public Person(String id, String name, String citizenId, LocalDate dateOfBirth, String telephone) {
-        this.id = id;
-        this.name = name;
+    public Person(String firstName, String lastName, String citizenId, LocalDate dateOfBirth, String telephone, Address address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.citizenId = citizenId;
         this.dateOfBirth = dateOfBirth;
         this.telephone = telephone;
+        this.address = address;
     }
 
-    public String getId() {
-        return id;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getName() {
-        return name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getCitizenId() {
@@ -55,5 +57,14 @@ public class Person {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public void printPerson() {
+        System.out.println("First Name: " + this.firstName);
+        System.out.println("Last Name: " + this.lastName);
+        System.out.println("Citizen ID: " + this.citizenId);
+        System.out.println("Date of Birth: " + this.dateOfBirth.toString());
+        System.out.println("Telephone: " + this.telephone);
+        this.address.printAddress();
     }
 }
