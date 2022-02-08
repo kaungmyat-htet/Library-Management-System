@@ -2,8 +2,12 @@ package com.library.model;
 
 import java.time.LocalDate;
 
-public class Member{
+public class Member extends Account{
     private LocalDate expireDate;
+
+    public Member(String id, String password, AccountStatus status, Person person) {
+        super(id, password, status, person);
+    }
 
     public LocalDate getExpireDate() {
         return expireDate;
@@ -15,6 +19,7 @@ public class Member{
 
     public void printUser()
     {
-
+        printAccountDetails();
+        System.out.println("Membership's Expire Date" + this.expireDate.toString());
     }
 }

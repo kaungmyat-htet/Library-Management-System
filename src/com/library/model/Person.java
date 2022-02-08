@@ -19,6 +19,14 @@ public class Person {
         this.address = address;
     }
 
+    public Person(String firstName, String lastName, String citizenId, LocalDate dateOfBirth, String telephone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.citizenId = citizenId;
+        this.dateOfBirth = dateOfBirth;
+        this.telephone = telephone;
+    }
+
     public String getFirstName() {
         return firstName;
     }
