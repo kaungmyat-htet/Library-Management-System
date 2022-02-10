@@ -1,6 +1,8 @@
 package com.library.model;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class DbConnect {
     private Connection connection;
@@ -49,5 +51,31 @@ public class DbConnect {
             System.out.println("Error in SQL Execution:" + e);
         }
         return isSuccess;
+    }
+
+
+    public ArrayList<String> getStatesList(String country) {
+        ArrayList<String> states = new ArrayList<String>();
+        country = country.toUpperCase(Locale.ROOT);
+        String state;
+        String query = "SELECT * FROM states WHERE country_id = (SELECT id FROM countries WHERE iso_code = '" + country + "');";
+
+        try {
+            ResultSet resultSet = statement.executeQuery(query);
+            if (!resultSet.isBeforeFirst()) {
+                System.out.println("No data found!");
+                System.out.println("Please recheck your country code pls");
+                return states;
+            }
+            while (resultSet.next()) {
+                state = resultSet.getString("name");
+                states.add(state);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error in SQL Execution: " + e);
+        }
+
+
+        return states;
     }
 }

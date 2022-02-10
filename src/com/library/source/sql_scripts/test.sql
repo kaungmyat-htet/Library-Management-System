@@ -1,0 +1,1 @@
+INSERT INTO addresses (street, city, state_id, zipcode) VALUES ()

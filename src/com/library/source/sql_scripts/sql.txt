@@ -3,7 +3,36 @@ This is just a text file for sql scripts so I won't forget what I do in database
 1. You need to create a database for this system.
 CREATE DATABASE library_system;
 
-2. Let's create a table named persons to store both members and admins
+2. Create a table name countries to store countries' name.
+    CREATE TABLE countries (
+        id SMALLINT GENERATED ALWAYS AS IDENTITY,
+        name VARCHAR(60) NOT NULL,
+        iso_code VARCHAR(2) NOT NULL,
+        PRIMARY KEY (id));
+
+3. Create a table named states to store state name.
+    CREATE TABLE states (
+        id SMALLINT GENERATED ALWAYS AS IDENTITY,
+        name VARCHAR(60) NOT NULL,
+        country_id SMALLINT,
+        PRIMARY KEY (id),
+        FOREIGN KEY (country_id) REFERENCES countries(id));
+
+4. Create a table named addresses to store everyone's addresses.
+    CREATE TABLE addresses (
+        id int GENERATED ALWAYS AS IDENTITY,
+        street VARCHAR(95) NOT NULL,
+        city VARCHAR(35) NOT NULL,
+        state_id int NOT NULL,
+        zipcode VARCHAR(5) NOT NULL,
+        PRIMARY KEY(id),
+        FOREIGN KEY(state_id) REFERENCES states(id));
+
+Debugging both states and countries table combine
+
+SELECT states.id, states.name, countries.name FROM states INNER JOIN countries on states.country_id = countries.id;
+
+5. Let's create a table named persons to store both members and admins
 CREATE TABLE persons (
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
@@ -12,34 +41,9 @@ CREATE TABLE persons (
     phone VARCHAR(15) NOT NULL,
     address_id int NOT NULL,
     PRIMARY KEY (cid),
-    FOREIGN KEY (address_id) REFERENCES addresses(address_id));
+    FOREIGN KEY (address_id) REFERENCES addresses(id));
 
-3. Create a table named addresses to store everyone's addresses.
-    CREATE TABLE addresses (
-        address_id int GENERATED ALWAYS AS IDENTITY,
-        street VARCHAR(95) NOT NULL,
-        city VARCHAR(35) NOT NULL,
-        state_id int NOT NULL,
-        zipcode VARCHAR(5) NOT NULL,
-        PRIMARY KEY(address_id),
-        FOREIGN KEY(state_id) REFERENCES states(state_id));
-
-4. Create a table name countries to store countries' name.
-    CREATE TABLE countries (
-        country_id SMALLINT GENERATED ALWAYS AS IDENTITY,
-        country_name VARCHAR(60) NOT NULL,
-        iso_code VARCHAR(2) NOT NULL,
-        PRIMARY KEY (country_id));
-
-5. Create a table named states to store state name.
-    CREATE TABLE states (
-        state_id int
-        country_id int
-        state_name VARCHAR(60) NOT NULL,
-        PRIMARY KEY (state_id),
-        FOREIGN KEY (country_id) REFERENCES countries(country_id));
-
-4. Create a table named accounts to store librarians and members' accounts.
+6. Create a table named accounts to store librarians and members' accounts.
     CREATE TABLE accounts (
         id VARCHAR(7),
         cid VARCHAR(12) NOT NULL,
