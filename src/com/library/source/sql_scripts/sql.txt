@@ -14,7 +14,7 @@ CREATE DATABASE library_system;
     CREATE TABLE states (
         id SMALLINT GENERATED ALWAYS AS IDENTITY,
         name VARCHAR(60) NOT NULL,
-        country_id SMALLINT,
+        country_id SMALLINT NOT NULL,
         PRIMARY KEY (id),
         FOREIGN KEY (country_id) REFERENCES countries(id));
 
@@ -41,6 +41,7 @@ CREATE TABLE persons (
     phone VARCHAR(15) NOT NULL,
     address_id int NOT NULL,
     PRIMARY KEY (cid),
+    UNIQUE(address_id),
     FOREIGN KEY (address_id) REFERENCES addresses(id));
 
 6. Create a table named accounts to store librarians and members' accounts.
@@ -55,15 +56,84 @@ CREATE TABLE persons (
 
     INSERT INTO accounts VALUES ('MU00001', '219-37-8710', crypt('password', gen_salt('bf')), 1);
 
-5. Create a table named members to store members' expire date.
+7. Joining Five Tables to see the results.
+    SELECT
+        accounts.id,
+        accounts.password,
+        accounts.status,
+        persons.first_name,
+        persons.last_name,
+        persons.cid,
+        persons.dob,
+        persons.phone,
+        addresses.street,
+        addresses.city,
+        states.name AS state,
+        countries.name AS country
+    FROM persons
+    JOIN addresses
+        ON persons.address_id = addresses.id
+    JOIN accounts
+        ON accounts.cid = persons.cid
+    JOIN states
+        ON addresses.state_id = states.id
+    JOIN countries
+        ON states.country_id = countries.id;
+
+
+    JOINING FOUR TABLES to see the person and address.
+
+    SELECT
+            persons.first_name,
+            persons.last_name,
+            persons.cid,
+            persons.dob,
+            persons.phone,
+            addresses.street,
+            addresses.city,
+            states.name AS state,
+            countries.name AS country
+        FROM persons
+        JOIN addresses
+            ON persons.address_id = addresses.id
+        JOIN states
+            ON addresses.state_id = states.id
+        JOIN countries
+            ON states.country_id = countries.id;
+
+
+8. Create a table named members to store members' expire date.
     CREATE TABLE members (
         id VARCHAR(7),
         expire_date DATE NOT NULL,
         PRIMARY KEY (id),
         FOREIGN KEY (id) REFERENCES accounts(id));
 
-6. Create a table named books to store books
+9. Create a table named categories to store books' categories.
+    CREATE TABLE categories (
+        id SMALLINT ALWAYS GENERATED AS IDENTITY,
+        name VARCHAR(40) NOT NULL,
+        PRIMARY KEY (id),
+        UNIQUE (name));
 
+10. Create a table named books to store books
+    CREATE TABLE books (
+        isbn VARCHAR(13),
+        title TEXT NOT NULL,
+        category_id SMALLINT NOT NULL,
+        number_of_pages SMALLINT NOT NULL,
+        PRIMARY KEY (isbn),
+        FOREIGN KEY (category_id) REFERENCE categories.id;
+
+    SELECT
+         books.isbn,
+         books.title,
+         books.authors,
+         books.number_of_pages,
+         categories.name
+         FROM books
+         JOIN categories
+         ON books.category_id = categories.id
 
 Let's consider MU00### as Librarian and others as Members
 
