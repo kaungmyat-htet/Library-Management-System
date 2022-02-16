@@ -157,10 +157,12 @@ CREATE TABLE persons (
         isbn VARCHAR(13) NOT NULL,
         price REAL NOT NULL,
         format_id SMALLINT NOT NULL,
+        status SMALLINT NOT NULL,
         date_of_purchased DATE NOT NULL,
         publication_date DATE NOT NULL,
         PRIMARY KEY (barcode),
         FOREIGN KEY (isbn) REFERENCES books(isbn),
+        FOREIGN KEY (status) REFERENCES book_status(id),
         FOREIGN KEY (format_id) REFERENCES book_formats(id));
 
 Let's consider MU00### as Librarian and others as Members
