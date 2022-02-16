@@ -120,10 +120,13 @@ CREATE TABLE persons (
     CREATE TABLE books (
         isbn VARCHAR(13),
         title TEXT NOT NULL,
-        category_id SMALLINT NOT NULL,
+        authors TEXT NOT NULL,
+        publisher TEXT NOT NULL,
+        language_code VARCHAR(6) NOT NULL,
         number_of_pages SMALLINT NOT NULL,
+        category_id SMALLINT NOT NULL,
         PRIMARY KEY (isbn),
-        FOREIGN KEY (category_id) REFERENCE categories.id;
+        FOREIGN KEY (category_id) REFERENCES categories(id));
 
     SELECT
          books.isbn,
@@ -141,13 +144,24 @@ CREATE TABLE persons (
         format VARCHAR(40),
         PRIMARY KEY (id));
 
+12. Create book_status table to store status of a book
+    CREATE TABLE book_status (
+        id SMALLINT GENERATED ALWAYS AS IDENTITY,
+        status VARCHAR(15) NOT NULL,
+        PRIMARY KEY (id));
+
 
 12. Create book_item to store book items.
     CREATE TABLE book_items (
         barcode VARCHAR(12),
-
-        PRIMARY KEY (barcode)
-    );
+        isbn VARCHAR(13) NOT NULL,
+        price REAL NOT NULL,
+        format_id SMALLINT NOT NULL,
+        date_of_purchased DATE NOT NULL,
+        publication_date DATE NOT NULL,
+        PRIMARY KEY (barcode),
+        FOREIGN KEY (isbn) REFERENCES books(isbn),
+        FOREIGN KEY (format_id) REFERENCES book_formats(id));
 
 Let's consider MU00### as Librarian and others as Members
 
