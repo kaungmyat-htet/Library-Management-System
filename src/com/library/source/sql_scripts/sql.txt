@@ -135,5 +135,19 @@ CREATE TABLE persons (
          JOIN categories
          ON books.category_id = categories.id
 
+11. Create book_formats table to store types of book formats
+    CREATE TABLE book_formats (
+        id SMALLINT GENERATED ALWAYS AS IDENTITY,
+        format VARCHAR(40),
+        PRIMARY KEY (id));
+
+
+12. Create book_item to store book items.
+    CREATE TABLE book_items (
+        barcode VARCHAR(12),
+
+        PRIMARY KEY (barcode)
+    );
+
 Let's consider MU00### as Librarian and others as Members
 
