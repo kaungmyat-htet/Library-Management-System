@@ -9,6 +9,10 @@ public class Member extends Account{
         super(id, password, status, person);
     }
 
+    public Member(String id) {
+        super(id);
+    }
+
     public LocalDate getExpireDate() {
         return expireDate;
     }

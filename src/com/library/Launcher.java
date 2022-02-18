@@ -1,8 +1,12 @@
 package com.library;
 
+import com.library.model.Account;
 import com.library.model.DbConnect;
+import com.library.model.Librarian;
+import com.library.model.Member;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Launcher {
@@ -17,22 +21,34 @@ public class Launcher {
 //
 //        librarian.printAccountDetails();
 
-//        String id, password;
-//        boolean isLoginSuccess = false;
-//
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.print("Enter account id: ");
-//        id = scanner.next();
-//        id = loginId.toUpperCase(Locale.ROOT);
-//        System.out.print("Enter password: ");
-//        password = scanner.next();
-//
-//        Account loginAccount = new Account(loginId, password);
-//        isLoginSuccess = librarian.login();
-//        if (isLoginSuccess) {
-//            loginId = id;
-//        }
-//        System.out.println(loginId);
+        String id, password;
+        boolean isLoginSuccess = false;
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter account id: ");
+        id = scanner.next();
+        id = id.toUpperCase(Locale.ROOT);
+        System.out.print("Enter password: ");
+        password = scanner.next();
+
+        Account loginAccount = new Account(id, password);
+        isLoginSuccess = loginAccount.login();
+        if (isLoginSuccess) {
+            loginId = id;
+            System.out.println(loginId);
+        } else {
+            System.out.println("Please check your account and password!");
+            return;
+        }
+
+        if (loginId != null && loginId.substring(0, 3).equals("MU0")) {
+            System.out.println("He is librarian.");
+            Librarian loginLibrarian = new Librarian(loginId);
+            loginLibrarian.addNewBook(scanner);
+        } else if (loginId != null) {
+            System.out.println("He is member.");
+            Member member = new Member(loginId);
+        }
 
 //        DbConnect dbConnect = new DbConnect();
 //        ArrayList<String> states = new ArrayList<String>();
@@ -51,7 +67,7 @@ public class Launcher {
 //            System.out.println(state);
 //        }
 
-        inputNewPerson();
+//        inputNewPerson();
 //        launch(args);
     }
 

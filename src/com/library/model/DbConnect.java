@@ -110,6 +110,24 @@ public class DbConnect {
         return addressId;
     }
 
+    public ArrayList<String> getCateogoryList() {
+        ArrayList<String> categories = new ArrayList<String>();
+        String query = "SELECT * FROM categories";
+        String category;
+        try {
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                category = resultSet.getString("name");
+                categories.add(category);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error in getCategoryList: ");
+            e.printStackTrace();
+        }
+        return categories;
+    }
+
     public void closeConnection() {
         try {
             this.connection.close();

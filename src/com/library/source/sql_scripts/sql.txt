@@ -136,7 +136,7 @@ CREATE TABLE persons (
          categories.name
          FROM books
          JOIN categories
-         ON books.category_id = categories.id
+         ON books.category_id = categories.id;
 
 11. Create book_formats table to store types of book formats
     CREATE TABLE book_formats (

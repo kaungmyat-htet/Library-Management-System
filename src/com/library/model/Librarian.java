@@ -1,11 +1,16 @@
 package com.library.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Librarian extends Account {
     public Librarian(String id, String password, AccountStatus status, Person person) {
         super(id, password, status, person);
+    }
+
+    public Librarian(String id) {
+        super(id);
     }
 
     public void registerMember() {
@@ -18,6 +23,51 @@ public class Librarian extends Account {
             System.out.println("Failed executing insert query!");
         }
 
+    }
+
+    public void addNewBook(Scanner scanner) {
+        Book newBook = enterBookDetail(scanner);
+        String query = "INSERT INTO books VALUES ('" + newBook.getIsbn() + "', '" + newBook.getTitle() +
+                "', ' " + newBook.getAuthor() + "', '" + newBook.getPublisher() + "', '" +newBook.getLanguageCode()
+                + "', " + newBook.getNumberOfPages() + ", " + newBook.getCategory() + ");";
+        DbConnect dbConnect = new DbConnect();
+        dbConnect.executeQuery(query);
+    }
+
+    private Book enterBookDetail(Scanner scanner) {
+        String isbn, title, author, publisher, langCode, noOfPages,cat;
+        int categoryId, numberOfPages;
+        System.out.print("Enter book isbn: ");
+        isbn = scanner.next();
+        System.out.print("Enter book title: ");
+        scanner.nextLine();
+        title = scanner.nextLine();
+        System.out.print("Enter book author/s: ");
+        author = scanner.nextLine();
+        System.out.print("Enter publisher: ");
+        publisher = scanner.nextLine();
+        System.out.print("Enter language code: ");
+        langCode = scanner.next();
+        System.out.print("Enter number of pages: ");
+        noOfPages = scanner.next();
+        numberOfPages = Integer.parseInt(noOfPages);
+        System.out.println("Please book's category: ");
+        DbConnect dbConnect = new DbConnect();
+        ArrayList<String> categories = dbConnect.getCateogoryList();
+        for (int i = 1; i < categories.size(); i++) {
+            System.out.println(i + "." + categories.get(i-1));
+        }
+        cat = scanner.next();
+        categoryId = Integer.parseInt(cat);
+        categoryId = categoryId;
+        if (categoryId > categories.size() || categoryId < 0) {
+            System.out.println("Error!!!!");
+        } else {
+            System.out.println(isbn + ", " + title + ", " + author + ", " + publisher + ", " + langCode + ", " + numberOfPages +", " + categoryId);
+            Book book = new Book(isbn, title, author, publisher, langCode, numberOfPages, categoryId);
+            return book;
+        }
+        return null;
     }
 
     private boolean executeAddPersonQuery(Person newMember) {

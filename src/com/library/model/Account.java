@@ -18,6 +18,10 @@ public class Account {
         this.password = password;
     }
 
+    public Account(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }
