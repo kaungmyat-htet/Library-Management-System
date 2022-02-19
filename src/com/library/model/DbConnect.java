@@ -128,6 +128,35 @@ public class DbConnect {
         return categories;
     }
 
+    public Book getBook(String isbn) {
+        String title, authors, publisher, language;
+        int pages, category;
+        if (isbn.length() > 13) {
+            System.out.println("Please enter a isbn13 format!");
+            return null;
+        }
+
+        String query = "SELECT * FROM books WHERE isbn = '" + isbn + "';";
+        try {
+            ResultSet resultSet = statement.executeQuery(query);
+            if (resultSet.next()) {
+                title = resultSet.getString("title");
+                authors = resultSet.getString("authors");
+                publisher = resultSet.getString("publisher");
+                language = resultSet.getString("language_code");
+                pages = resultSet.getInt("number_of_pages");
+                category = resultSet.getInt("category_id");
+                Book book = new Book(isbn, title, authors, publisher, language, pages, category);
+                return book;
+            } else {
+                System.out.println("There is no book with this isbn. Please check your isbn.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error in getBook > DbConnect :" + e);
+        }
+        return null;
+    }
+
     public void closeConnection() {
         try {
             this.connection.close();

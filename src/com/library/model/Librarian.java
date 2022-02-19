@@ -70,6 +70,22 @@ public class Librarian extends Account {
         return null;
     }
 
+    public void editBook() {
+        System.out.print("Enter book isbn: ");
+        Scanner scanner = new Scanner(System.in);
+        String isbn = scanner.next();
+        getBookDetail(isbn);
+    }
+
+    public void getBookDetail(String isbn) {
+        DbConnect dbConnect = new DbConnect();
+        Book newBook = dbConnect.getBook(isbn);
+        if (newBook != null) {
+            newBook.printBookDetails();
+        }
+    }
+
+
     private boolean executeAddPersonQuery(Person newMember) {
         boolean isExecuted = false;
         String personQuery = "INSERT INTO persons VALUES ('" + newMember.getFirstName() + "', '" +

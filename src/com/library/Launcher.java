@@ -1,9 +1,6 @@
 package com.library;
 
-import com.library.model.Account;
-import com.library.model.DbConnect;
-import com.library.model.Librarian;
-import com.library.model.Member;
+import com.library.model.*;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -21,6 +18,30 @@ public class Launcher {
 //
 //        librarian.printAccountDetails();
 
+        login();
+
+//        DbConnect dbConnect = new DbConnect();
+//        ArrayList<String> states = new ArrayList<String>();
+//        System.out.print("Enter your country code(Eg- TH for Thailand): ");
+//        String countryCode = scanner.next();
+//        while (countryCode.length() != 2) {
+//            System.out.println("Please enter a two character country code pls!");
+//            System.out.print("Enter your country code(##): ");
+//            countryCode = scanner.next();
+//        }
+//
+//        countryCode = countryCode.toUpperCase(Locale.ROOT);
+//        states = dbConnect.getStatesList(countryCode);
+//
+//        for (String state : states) {
+//            System.out.println(state);
+//        }
+
+//        inputNewPerson();
+//        launch(args);
+    }
+
+    private static void login() {
         String id, password;
         boolean isLoginSuccess = false;
 
@@ -44,31 +65,43 @@ public class Launcher {
         if (loginId != null && loginId.substring(0, 3).equals("MU0")) {
             System.out.println("He is librarian.");
             Librarian loginLibrarian = new Librarian(loginId);
-            loginLibrarian.addNewBook(scanner);
+            outputLibrarianFunctions();
+            String choice = scanner.next();
+            int taskNum = Integer.parseInt(choice);
+            switch (taskNum) {
+                case 1:
+                    System.out.println("----Register New Member----");
+                    break;
+                case 2:
+                    System.out.println("----Add New Book----");
+                    loginLibrarian.addNewBook(scanner);
+                    break;
+                case 3:
+                    System.out.println("----Edit Book---- ");
+                    loginLibrarian.editBook();
+                    break;
+                case 4:
+                    System.out.println("----Delete Book----");
+                    break;
+                default:
+                    System.out.println("Please choose a valid option to do an operation.");
+                    break;
+            }
+
         } else if (loginId != null) {
             System.out.println("He is member.");
             Member member = new Member(loginId);
         }
+    }
 
-//        DbConnect dbConnect = new DbConnect();
-//        ArrayList<String> states = new ArrayList<String>();
-//        System.out.print("Enter your country code(Eg- TH for Thailand): ");
-//        String countryCode = scanner.next();
-//        while (countryCode.length() != 2) {
-//            System.out.println("Please enter a two character country code pls!");
-//            System.out.print("Enter your country code(##): ");
-//            countryCode = scanner.next();
-//        }
-//
-//        countryCode = countryCode.toUpperCase(Locale.ROOT);
-//        states = dbConnect.getStatesList(countryCode);
-//
-//        for (String state : states) {
-//            System.out.println(state);
-//        }
-
-//        inputNewPerson();
-//        launch(args);
+    public static void outputLibrarianFunctions() {
+        System.out.println("What would you like to do?");
+        System.out.println("1. Register New Member");
+        System.out.println("2. Add New Book");
+        System.out.println("3. Edit Book");
+        System.out.println("4. Delete Book");
+        System.out.println("5. Add New Book Item");
+        System.out.println("6. Delete Book Item");
     }
 
     public static void inputNewPerson() {

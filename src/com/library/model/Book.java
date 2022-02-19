@@ -74,4 +74,15 @@ public class Book {
     public void setCategory(int category) {
         this.category = category;
     }
+
+    public void printBookDetails() {
+        System.out.println("Book Details: ");
+        System.out.println("Isbn: " + this.isbn);
+        System.out.println("Title: " + this.title);
+        System.out.println("Author: " + this.author);
+        System.out.println("Publisher: " + this.publisher);
+        System.out.println("Language Code: " + this.languageCode);
+        System.out.println("Number Of Pages: " + this.numberOfPages);
+        System.out.println("Category Id: " + this.category);
+    }
 }
