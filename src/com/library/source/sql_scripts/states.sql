@@ -1,7 +1,11 @@
-INSERT INTO states (name, country_id)
-SELECT 'Badakhshan', countries.id
-FROM countries WHERE iso_code = 'AF';
+CREATE TABLE states (
+id SMALLINT GENERATED ALWAYS AS IDENTITY,
+name VARCHAR(60) NOT NULL,
+country_id SMALLINT NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (country_id) REFERENCES countries(id));
 
+INSERT INTO states (name, country_id) SELECT 'Badakhshan', countries.id FROM countries WHERE iso_code = 'AF';
 INSERT INTO states (name, country_id) SELECT 'Badghis', countries.id FROM countries WHERE iso_code = 'AF';
 INSERT INTO states (name, country_id) SELECT 'Baghlan', countries.id FROM countries WHERE iso_code = 'AF';
 INSERT INTO states (name, country_id) SELECT 'Balkh', countries.id FROM countries WHERE iso_code = 'AF';

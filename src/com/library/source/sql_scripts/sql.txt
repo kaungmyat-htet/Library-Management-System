@@ -19,7 +19,7 @@ CREATE DATABASE library_system;
         FOREIGN KEY (country_id) REFERENCES countries(id));
 
 4. Create a table named addresses to store everyone's addresses.
-    CREATE TABLE addresses (
+CREATE TABLE addresses (
         id int GENERATED ALWAYS AS IDENTITY,
         street VARCHAR(95) NOT NULL,
         city VARCHAR(35) NOT NULL,

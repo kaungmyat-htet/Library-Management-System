@@ -1,3 +1,11 @@
+CREATE TABLE countries (
+id SMALLINT GENERATED ALWAYS AS IDENTITY,
+name VARCHAR(60) NOT NULL,
+iso_code VARCHAR(2) NOT NULL,
+PRIMARY KEY (id));
+
+SELECT * FROM countries;
+
 INSERT INTO countries(name,iso_code) VALUES ('Afghanistan','AF');
 INSERT INTO countries(name,iso_code) VALUES ('Aland Islands','AX');
 INSERT INTO countries(name,iso_code) VALUES ('Albania','AL');
