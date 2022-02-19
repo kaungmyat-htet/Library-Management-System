@@ -69,23 +69,17 @@ public class Launcher {
             String choice = scanner.next();
             int taskNum = Integer.parseInt(choice);
             switch (taskNum) {
-                case 1:
-                    System.out.println("----Register New Member----");
-                    break;
-                case 2:
+                case 1 -> System.out.println("----Register New Member----");
+                case 2 -> {
                     System.out.println("----Add New Book----");
                     loginLibrarian.addNewBook(scanner);
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     System.out.println("----Edit Book---- ");
                     loginLibrarian.editBook();
-                    break;
-                case 4:
-                    System.out.println("----Delete Book----");
-                    break;
-                default:
-                    System.out.println("Please choose a valid option to do an operation.");
-                    break;
+                }
+                case 4 -> System.out.println("----Add New Book Item----");
+                default -> System.out.println("Please choose a valid option to do an operation.");
             }
 
         } else if (loginId != null) {
@@ -99,9 +93,8 @@ public class Launcher {
         System.out.println("1. Register New Member");
         System.out.println("2. Add New Book");
         System.out.println("3. Edit Book");
-        System.out.println("4. Delete Book");
-        System.out.println("5. Add New Book Item");
-        System.out.println("6. Delete Book Item");
+        System.out.println("4. Add New Book Item");
+        System.out.println("6. Edit Book Item");
     }
 
     public static void inputNewPerson() {

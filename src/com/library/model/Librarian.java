@@ -2,6 +2,7 @@ package com.library.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Librarian extends Account {
@@ -75,6 +76,36 @@ public class Librarian extends Account {
         Scanner scanner = new Scanner(System.in);
         String isbn = scanner.next();
         getBookDetail(isbn);
+        System.out.println("What do you want to edit this book?");
+        System.out.println("1. Edit details");
+        System.out.println("2. Delete book");
+        System.out.println("3. Cancel");
+        String choice = scanner.next();
+        int task = Integer.parseInt(choice);
+        switch (task) {
+            case 1 -> System.out.println("----Edit Detail of the book");
+            case 2 -> {
+                System.out.print("Delete this book. Are you sure about this?(y/n)");
+                String confirm = scanner.next();
+                confirm = confirm.toLowerCase(Locale.ROOT);
+                if (!confirm.equals("y")) {
+                    System.out.println("Return to main page.");
+                } else {
+                    deleteBook(isbn);
+                }
+            }
+        }
+    }
+
+    public void deleteBook(String isbn) {
+        String query = "DELETE FROM books WHERE isbn = '" + isbn + "';";
+        DbConnect dbConnect = new DbConnect();
+        boolean isDeleted = dbConnect.executeQuery(query);
+        if (isDeleted) {
+            System.out.println("Deleted successfully.");
+        } else {
+            System.out.println("Error deleting the book.");
+        }
     }
 
     public void getBookDetail(String isbn) {
