@@ -84,13 +84,31 @@ public class Launcher {
 
         } else if (loginId != null) {
             System.out.println("He is member.");
-            Member member = new Member(loginId);
+            Member loginMember = new Member(loginId);
+            outputMemberFunctions();
+            String choice = scanner.next();
+            int taskNum = Integer.parseInt(choice);
+            switch (taskNum) {
+                case 1 -> {
+                    System.out.println("----Checkout Book----");
+                    loginMember.checkBookItemBarcode();
+                }
+            }
         }
     }
 
     public static void outputLibrarianFunctions() {
         System.out.println("What would you like to do?");
         System.out.println("1. Register New Member");
+        System.out.println("2. Add New Book");
+        System.out.println("3. Edit Book");
+        System.out.println("4. Add New Book Item");
+        System.out.println("6. Edit Book Item");
+    }
+
+    public static void outputMemberFunctions() {
+        System.out.println("What would you like to do?");
+        System.out.println("1. Checkout Book");
         System.out.println("2. Add New Book");
         System.out.println("3. Edit Book");
         System.out.println("4. Add New Book Item");

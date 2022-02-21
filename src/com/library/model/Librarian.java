@@ -54,7 +54,7 @@ public class Librarian extends Account {
         numberOfPages = Integer.parseInt(noOfPages);
         System.out.println("Please book's category: ");
         DbConnect dbConnect = new DbConnect();
-        ArrayList<String> categories = dbConnect.getCateogoryList();
+        ArrayList<String> categories = dbConnect.getCategoryList();
         for (int i = 1; i < categories.size(); i++) {
             System.out.println(i + "." + categories.get(i-1));
         }
@@ -162,6 +162,14 @@ public class Librarian extends Account {
         country = scanner.next();
 
         return new Address(street,city,state,zipCode,country);
+    }
+
+    private String enterMemberId() {
+        return null;
+    }
+
+    public void issueBook() {
+
     }
 
 //    private boolean addMemberAddress() {

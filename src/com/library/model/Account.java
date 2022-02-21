@@ -1,5 +1,7 @@
 package com.library.model;
 
+import java.util.Scanner;
+
 public class Account {
     private String id;
     private String password;
@@ -65,12 +67,30 @@ public class Account {
         boolean isSuccess = false;
         DbConnect dbConnect = new DbConnect();
         String query = "SELECT * FROM accounts where id = '" + getId() + "' AND password = crypt('" + getPassword() + "', password);";
-        isSuccess = dbConnect.executeLoginQuery(query);
+        isSuccess = dbConnect.checkInDb(query);
         if (isSuccess) {
             System.out.println("Yay! Login Success");
         } else {
             System.out.println("Login Failed! Please Check your id and password pls.");
         }
         return isSuccess;
+    }
+
+
+    public String checkBookItemBarcode() {
+        System.out.println("Scan the barcode of the book: ");
+        Scanner scanner = new Scanner(System.in);
+        String barcode = scanner.next();
+        scanner.close();
+        if (barcode.length() != 12) {
+            System.out.println("Invalid Barcode!");
+        } else {
+            DbConnect dbConnect = new DbConnect();
+            String query = "SELECT * FROM book_items WHERE barcode = '" + barcode + "';";
+            boolean found = dbConnect.checkInDb(query);
+            System.out.println("Result: " + found);
+            return barcode;
+        }
+        return null;
     }
 }

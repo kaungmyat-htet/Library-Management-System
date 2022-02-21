@@ -37,7 +37,7 @@ public class DbConnect {
         return isSuccess;
     }
 
-    public boolean executeLoginQuery(String query) {
+    public boolean checkInDb(String query) {
         boolean isSuccess = false;
         try {
             ResultSet resultSet = statement.executeQuery(query);
@@ -74,7 +74,6 @@ public class DbConnect {
             System.out.println("Error in SQL Execution: " + e);
         }
 
-
         return states;
     }
 
@@ -110,7 +109,7 @@ public class DbConnect {
         return addressId;
     }
 
-    public ArrayList<String> getCateogoryList() {
+    public ArrayList<String> getCategoryList() {
         ArrayList<String> categories = new ArrayList<String>();
         String query = "SELECT * FROM categories";
         String category;
@@ -131,7 +130,7 @@ public class DbConnect {
     public Book getBook(String isbn) {
         String title, authors, publisher, language;
         int pages, category;
-        if (isbn.length() > 13) {
+        if (isbn.length() != 13) {
             System.out.println("Please enter a isbn13 format!");
             return null;
         }

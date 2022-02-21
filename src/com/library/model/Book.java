@@ -19,6 +19,10 @@ public class Book {
         this.category = category;
     }
 
+    public Book(String isbn) {
+        this.isbn = isbn;
+    }
+
     public String getIsbn() {
         return isbn;
     }
